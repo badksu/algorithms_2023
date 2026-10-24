@@ -1,8 +1,6 @@
 # Binary search and Sorting algorithms
 ***
 ### Merge sort 
-<details>
-<summary> realization </summary>
 
 ```c++
 template<typename T>
@@ -45,15 +43,11 @@ void MergeSort(std::vector<T> &arr) {
 	arr = Merge(left, right);
 }
 ```
-</details>
 
 ### Quick sort
 * Выбираем случайный элемент(пивот) в массиве.
 * Перемещаем все элементы меньше пивота влево, больше него - вправо.
 * Рекурсивно сортируем левый и правый кусок.
-
-<details>
-<summary> realization </summary>
 
 ```c++
 std::random_device rd;
@@ -88,6 +82,57 @@ void QuickSort(std::vector<T> &arr, size_t begin, size_t end) {
 }
 }
 ```
-</details>
 
 ### Quick select
+
+* 
+* 
+*
+
+```c++
+template<typename T>
+size_t Partition(std::vector<T> &arr, size_t left_border, size_t right_border);
+
+template<typename T>
+size_t QuickSelect(std::vector <T> &arr, size_t position, size_t begin, size_t end) {
+	if (end - begin <= 1) {
+		return begin;
+	}
+
+	size_t pivot_position = Partition(arr, begin, end);
+	if (position <= pivot_position) {
+		return QuickSelect(arr, position, begin, pivot_position + 1);
+	}
+	return QuickSelect(arr, position, pivot_position + 1, end);
+}
+```
+
+### Counting sort
+
+* 
+* 
+* 
+
+```c++
+void CountingSort(std::vector<int> &values, int max_value) {
+	++max_value;
+	std::vector<int> result(values.size());
+	std::vector<int> count_of_value(max_value, 0);
+	
+	for (int i = 0; i < values.size(); ++i) {
+		++count_of_value[values[i]];
+	}
+	for (int i = 1; i < max_value; ++i) {
+		count_of_value[i] += count_of_value[i - 1];
+	}
+	for (int i = values.size() - 1; i > -1; --i) {
+		int value = values[i];
+		result[count_of_value[value] - 1] = value;
+		--count_of_value[value];
+	}
+	
+	values = result;
+}
+```
+
+### Least Significant Digit
